@@ -9,8 +9,8 @@ const server = Fastify({
   }
 })
 
-await server.register(FastifyVite, { 
-  root: import.meta.url, 
+await server.register(FastifyVite, {
+  root: import.meta.url,
   renderer: '@fastify/react',
 })
 
@@ -22,6 +22,11 @@ server.decorate('db', {
     'Respond to emails',
     'Write report',
   ]
+})
+
+server.get('/api/todo/items', (req, reply) => {
+  server.log.info('🚀 GET /api/todo/items route hit')
+  reply.send(server.db.todoList)
 })
 
 server.put('/api/todo/items', (req, reply) => {
